@@ -18,7 +18,7 @@ data:
 
     # Make JupyterHub accessible via ingress
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -42,39 +42,39 @@ data:
       networkPolicy:
         enabled: false
 
-      # Configure Keycloak auth
-      config:
-        JupyterHub:
-          authenticator_class: generic-oauth
-        GenericOAuthenticator:
-          client_id: scott-jupyterhub-test
-          # client_secret: <stored-in-sealed-secret>
-          # Must match ingress host
-          oauth_callback_url: https://128-232-226-29.sslip.io/hub/oauth_callback
-          authorize_url: https://identity.apps.hpc.cam.ac.uk/realms/az-rcp-cloud-portal-demo/protocol/openid-connect/auth
-          token_url: https://identity.apps.hpc.cam.ac.uk/realms/az-rcp-cloud-portal-demo/protocol/openid-connect/token
-          userdata_url: https://identity.apps.hpc.cam.ac.uk/realms/az-rcp-cloud-portal-demo/protocol/openid-connect/userinfo
-          scope:
-          - openid
-          - groups
-          username_claim: preferred_username
-          claim_groups_key: groups
-          userdata_params:
-            state: state
+      # # Configure Keycloak auth
+      # config:
+      #   JupyterHub:
+      #     authenticator_class: generic-oauth
+      #   GenericOAuthenticator:
+      #     client_id: scott-jupyterhub-test
+      #     # client_secret: <stored-in-sealed-secret>
+      #     # Must match ingress host
+      #     oauth_callback_url: https://128-232-226-29.sslip.io/hub/oauth_callback
+      #     authorize_url: https://identity.apps.hpc.cam.ac.uk/realms/az-rcp-cloud-portal-demo/protocol/openid-connect/auth
+      #     token_url: https://identity.apps.hpc.cam.ac.uk/realms/az-rcp-cloud-portal-demo/protocol/openid-connect/token
+      #     userdata_url: https://identity.apps.hpc.cam.ac.uk/realms/az-rcp-cloud-portal-demo/protocol/openid-connect/userinfo
+      #     scope:
+      #     - openid
+      #     - groups
+      #     username_claim: preferred_username
+      #     claim_groups_key: groups
+      #     userdata_params:
+      #       state: state
 
-          # Limit access to specific keycloak groups
-          allowed_groups:
-          - /admins
-          - /platform-users
+      #     # Limit access to specific keycloak groups
+      #     allowed_groups:
+      #     - /admins
+      #     - /platform-users
 
-          # Allow hub admin access to keycloak users/groups
-          # admin_groups:
-          # - /admins
-          admin_users:
-          - scottd_stack
+      #     # Allow hub admin access to keycloak users/groups
+      #     # admin_groups:
+      #     # - /admins
+      #     admin_users:
+      #     - scottd_stack
 
-          # Label for the 'Sign in with ___' button
-          login_service: Keycloak
+      #     # Label for the 'Sign in with ___' button
+      #     login_service: Keycloak
 
       # We install the kubernetes client here so that we can use it to
       # detect weather the cluster has any GPU nodes, allowing us to show/hide
@@ -162,7 +162,7 @@ data:
       # Defines the default image
       image:
         name: quay.io/jupyter/minimal-notebook
-        tag: "2024-08-05"
+        tag: "2025-01-20"
       # Build these dynamically in extraConfig above instead
       # profileList:
       #   - display_name: "Minimal environment"
