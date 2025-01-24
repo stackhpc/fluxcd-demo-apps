@@ -12,10 +12,10 @@ spec:
   valuesFrom:
   - kind: ConfigMap
     name: jupyterhub-config
-  - kind: Secret
-    name: jupyterhub-keycloak-config
-    valuesKey: keycloakClientSecret
-    targetPath: hub.config.GenericOAuthenticator.client_secret
+  # - kind: Secret
+  #   name: jupyterhub-keycloak-config
+  #   valuesKey: keycloakClientSecret
+  #   targetPath: hub.config.GenericOAuthenticator.client_secret
   install:
     createNamespace: true
     remediation:
