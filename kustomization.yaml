@@ -1,4 +1,4 @@
 ---
 resources:
-  # - apps/spegel
-  # - apps/jupyterhub
+  - apps/spegel
+  - apps/jupyterhub
