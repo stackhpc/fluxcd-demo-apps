@@ -1,2 +1,4 @@
 ---
-todo: false
+image:
+  repository: ghcr.io/slinkyproject/slurm-operator
+  tag: "0.1.0"
