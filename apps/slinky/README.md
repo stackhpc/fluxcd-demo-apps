@@ -9,7 +9,7 @@ To test Slurm functionality, connect to the controller to use Slurm client
 commands:
 
 ```sh
-kubectl -n slurm exec -it statefulsets/slurm-controlplane -- bash --login
+kubectl -n slurm exec -it statefulsets/slurm-controller -- bash --login
 ```
 
 On the controller pod (e.g. host `slurm@slurm-controller-0`), run the following

@@ -1,5 +1,5 @@
 ---
 resources:
-  - ../cert-manager/
+  # - ../cert-manager/
   - ../slinky-slurm-operator/
   - ../slinky-slurm-controlplane/
