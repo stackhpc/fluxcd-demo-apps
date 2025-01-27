@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: slinky-slurm-operator
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: slinky-slurm-operator
+  valuesFrom:
+    - kind: ConfigMap
+      name: slinky-slurm-operator-defaults
+      valuesKey: values.yaml
+  install:
+    createNamespace: true
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      retries: -1
+  driftDetection:
+    mode: enabled
+  interval: 5m

@@ -1,0 +1,15 @@
+---
+namespace: slinky-slurm-operator
+
+configurations:
+  - kustomizeconfig.yaml
+
+configMapGenerator:
+  - name: slinky-slurm-operator-defaults
+    files:
+      - values.yaml=defaults.yaml
+
+resources:
+  - namespace.yaml
+  - ocirepository.yaml
+  - helmrelease.yaml

@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: slinky-slurm-operator
+spec:
+  interval: 10m
+  url: oci://ghcr.io/slinkyproject/charts/slurm-operator
+  ref:
+    semver: "0.1.0"
