@@ -1,2 +1,4 @@
 ---
-todo: false
+controller:
+  persistence:
+    storageClass: csi-cinder
