@@ -20,5 +20,5 @@ spec:
       retries: -1
   driftDetection:
     mode: disabled
-  interval: 10m
-  timeout: 10m
+  interval: 40m
+  timeout: 30m
