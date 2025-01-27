@@ -1,5 +1,5 @@
 ---
-namespace: slinky-slurm-operator
+namespace: slinky
 
 configurations:
   - kustomizeconfig.yaml

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: slinky-slurm-controlplane
+  name: slurm
 spec:
   chartRef:
     kind: OCIRepository
@@ -19,6 +19,6 @@ spec:
     remediation:
       retries: -1
   driftDetection:
-    mode: enabled
+    mode: disabled
   interval: 10m
   timeout: 10m
