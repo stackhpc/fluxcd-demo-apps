@@ -1,0 +1,15 @@
+---
+namespace: slinky-slurm-controlplane
+
+configurations:
+  - kustomizeconfig.yaml
+
+configMapGenerator:
+  - name: slinky-slurm-defaults
+    files:
+      - values.yaml=defaults.yaml
+
+resources:
+  - namespace.yaml
+  - ocirepository.yaml
+  - helmrelease.yaml

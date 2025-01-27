@@ -2,3 +2,4 @@
 resources:
   - ../cert-manager/
   - ../slinky-slurm-operator/
+  - ../slinky-slurm-controlplane/
