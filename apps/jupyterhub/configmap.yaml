@@ -12,6 +12,9 @@ data:
 
     # We don't need a load balancer for the proxy
     # since we want to use ingress instead.
+    #
+    # To access manually try:
+    # kubectl port-forward -n jupyterhub svc/proxy-public 8080:80
     proxy:
       service:
         type: ClusterIP
@@ -19,28 +22,28 @@ data:
     # Make JupyterHub accessible via ingress
     ingress:
       enabled: false
-      ingressClassName: nginx
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        # IP must match NGINX ingress controller's
-        # load balancer IP.
-        # See `kubectl get svc -n ingress-nginx`
-        - &host 128-232-226-29.sslip.io
-      pathSuffix: ""
-      tls:
-        - hosts:
-          - *host
-          secretName: jupyterhub-ingress-cert
+      # ingressClassName: nginx
+      # annotations:
+      #   cert-manager.io/cluster-issuer: letsencrypt-prod
+      # hosts:
+      #   # IP must match NGINX ingress controller's
+      #   # load balancer IP.
+      #   # See `kubectl get svc -n ingress-nginx`
+      #   - &host 128-232-226-29.sslip.io
+      # pathSuffix: ""
+      # tls:
+      #   - hosts:
+      #     - *host
+      #     secretName: jupyterhub-ingress-cert
 
     hub:
       allowNamedServers: true
-      namedServerLimitPerUser: 5
-      activeServerLimit: 3
+      namedServerLimitPerUser: 3
+      activeServerLimit: 2
       # Server startup fails with default
       # restrictive network policy.
       networkPolicy:
-        enabled: false
+         enabled: false
 
       # # Configure Keycloak auth
       # config:
@@ -76,81 +79,7 @@ data:
       #     # Label for the 'Sign in with ___' button
       #     login_service: Keycloak
 
-      # We install the kubernetes client here so that we can use it to
-      # detect weather the cluster has any GPU nodes, allowing us to show/hide
-      # GPU nodebook profiles automatically.
-      args:
-        - bash
-        - -c
-        - "pip install kubernetes && jupyterhub --config /usr/local/etc/jupyterhub/jupyterhub_config.py --upgrade-db"
-      extraConfig:
-        # Add user profiles dynamically based on cluster hardware
-        customspawner.py: |
-          from kubespawner import KubeSpawner
-          from kubernetes import client, config
-
-          def build_profiles(spawner: KubeSpawner):
-            profiles = [
-              {
-                "display_name": "Minimal environment",
-                "description": "To avoid too much bells and whistles: Python.",
-                "default": True,
-              },
-              {
-                "display_name": "Datascience environment",
-                "description": "If you want the additional bells and whistles: Python, R, and Julia.",
-                "kubespawner_override": {
-                  "image": "quay.io/jupyter/datascience-notebook:2024-08-05"
-                },
-              },
-              {
-                "display_name": "Pytorch environment (CPU)",
-                "description": "The official Jupyter Pytorch.",
-                "kubespawner_override": {
-                  "image": "quay.io/jupyter/pytorch-notebook:pytorch-2.4.0",
-                },
-              },
-            ]
-
-            config.load_incluster_config()
-            api = client.CoreV1Api()
-            nodes = api.list_node().items
-
-            has_nvidia_gpu = lambda node: node.metadata.labels.get("nvidia.com/gpu.present", "") == "true"
-            has_intel_gpu = lambda node: node.metadata.labels.get("gpu.intel.com/device-id.0380-0bd5.present", "") == "true"
-
-            if any(map(has_nvidia_gpu, nodes)):
-              profiles.append({
-                "display_name": "Pytorch environment (Nvidia GPU)",
-                "description": "The official Jupyter Pytorch + CUDA image. Requires a GPU compatible notebook server.",
-                "kubespawner_override": {
-                  "image": "quay.io/jupyter/pytorch-notebook:cuda12-pytorch-2.4.0",
-                  "extra_resource_limits": {
-                    "nvidia.com/gpu": "1",
-                  },
-                },
-              })
-            if any(map(has_intel_gpu, nodes)):
-              profiles.append({
-                "display_name": "Pytorch environment (Intel GPU)",
-                "description": "A Jupyter + Intel Pytorch image. Requires a GPU compatible notebook server.",
-                "kubespawner_override": {
-                  "image": "ghcr.io/stackhpc/jupyterhub-pytorch-intel-gpu:v0.0.1",
-                  "extra_resource_limits": {
-                    "gpu.intel.com/i915": "1",
-                  },
-                  "supplemental_gids":[
-                    "110", # Ubuntu render group GID, requred for permission to use Intel GPU device
-                  ],
-                },
-              })
-
-            return profiles
-
-          c.KubeSpawner.profile_list = build_profiles
-
-    # Pre-pullers are not useful when profile list
-    # is built dynamically
+    # turn this off for now
     prePuller:
       hook:
         enabled: false
@@ -158,21 +87,18 @@ data:
         enabled: false
 
     singleuser:
-      defaultUrl: /lab
-      # Defines the default image
       image:
         name: quay.io/jupyter/minimal-notebook
-        tag: "2025-01-20"
-      # Build these dynamically in extraConfig above instead
-      # profileList:
-      #   - display_name: "Minimal environment"
-      #     description: "To avoid too much bells and whistles: Python."
-      #     default: true
-      #   - display_name: "Datascience environment"
-      #     description: "If you want the additional bells and whistles: Python, R, and Julia."
-      #     kubespawner_override:
-      #       image: quay.io/jupyter/datascience-notebook:2024-08-05
-      #   - display_name: "Spark environment"
-      #     description: "The Jupyter Stacks spark image!"
-      #     kubespawner_override:
-      #       image: quay.io/jupyter/all-spark-notebook:2024-08-05
+        tag: "2025-01-28"
+      profileList:
+        - display_name: "Minimal environment"
+          description: "To avoid too much bells and whistles: Python."
+          default: true
+        - display_name: "Datascience environment"
+          description: "If you want the additional bells and whistles: Python, R, and Julia."
+          kubespawner_override:
+            image: quay.io/jupyter/datascience-notebook:2025-01-28
+        - display_name: "Pytorch environment"
+          description: "Pytorch Jupyter Stacks image!"
+          kubespawner_override:
+            image: quay.io/jupyter/pytorch-notebook:2025-01-28
