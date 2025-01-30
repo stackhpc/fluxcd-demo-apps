@@ -22,19 +22,19 @@ data:
     # Make JupyterHub accessible via ingress
     ingress:
       enabled: false
-      # ingressClassName: nginx
-      # annotations:
-      #   cert-manager.io/cluster-issuer: letsencrypt-prod
-      # hosts:
-      #   # IP must match NGINX ingress controller's
-      #   # load balancer IP.
-      #   # See `kubectl get svc -n ingress-nginx`
-      #   - &host 128-232-226-29.sslip.io
-      # pathSuffix: ""
-      # tls:
-      #   - hosts:
-      #     - *host
-      #     secretName: jupyterhub-ingress-cert
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        # IP must match NGINX ingress controller's
+        # load balancer IP.
+        # See `kubectl get svc -n ingress-nginx`
+        - &host jh.dawntest.128-232-224-75.nip.io
+      pathSuffix: ""
+      tls:
+        - hosts:
+          - *host
+          secretName: jupyterhub-ingress-cert
 
     hub:
       allowNamedServers: true

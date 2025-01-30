@@ -224,7 +224,7 @@ controller:
     #
     # -- (string)
     # Create a `PersistentVolumeClaim` with this storage class.
-    storageClass: csi-cinder
+    storageClass: csi-manila
     #
     # -- (list)
     # Create a `PersistentVolumeClaim` with these access modes.
@@ -531,7 +531,7 @@ mariadb:
     persistence:
       enabled: false
       existingClaim: ""
-      storageClass: csi-cinder
+      storageClass: csi-manila
       labels: {}
       annotations: {}
       accessModes:
