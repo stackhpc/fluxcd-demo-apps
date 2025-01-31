@@ -76,3 +76,5 @@ USER ${NB_USER}
 
 RUN pip3 install -U torch torchvision torchaudio \
   --index-url https://download.pytorch.org/whl/test/xpu
+
+COPY examples.ipynb .
