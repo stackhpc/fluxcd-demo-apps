@@ -98,11 +98,20 @@ data:
           description: "If you want the additional bells and whistles: Python, R, and Julia."
           kubespawner_override:
             image: quay.io/jupyter/datascience-notebook:2025-01-28
-        - display_name: "Pytorch environment with 2 Intel XPUs"
+        - display_name: "Pytorch environment with Intel XPUs (v0.0.1)"
           description: "Pytorch Jupyter Stacks image!"
           kubespawner_override:
             image: quay.io/jupyter/pytorch-notebook:2025-01-28
+            #image: ghcr.io/stackhpc/jupyterhub-pytorch-intel-gpu:v0.0.1
             extra_resource_limits:
-              "gpu.intel.com/i915": "2"
+              "gpu.intel.com/i915": "1"
             supplemental_gids:
               - "110" # Ubuntu render group GID, requred for permission to use Intel GPU device
+            # https://pytorch.org/docs/stable/notes/get_start_xpu.html
+            # lifecycle_hooks:
+            #   postStart:
+            #     exec:
+            #       command:
+            #         - "sh"
+            #         - "-c"
+            #         - "pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/xpu"
