@@ -39,7 +39,7 @@ data:
     hub:
       allowNamedServers: true
       namedServerLimitPerUser: 3
-      activeServerLimit: 2
+      activeServerLimit: 5
       # Server startup fails with default
       # restrictive network policy.
       networkPolicy:
@@ -98,21 +98,29 @@ data:
           description: "If you want the additional bells and whistles: Python, R, and Julia."
           kubespawner_override:
             image: quay.io/jupyter/datascience-notebook:2025-01-28
-        - display_name: "Pytorch environment with Intel XPUs (v0.0.2)"
+        - display_name: "Pytorch environment with 1 x Intel XPUs"
           description: "Pytorch Jupyter Stacks image!"
           kubespawner_override:
             #image: quay.io/jupyter/pytorch-notebook:2025-01-28
             #image: ghcr.io/stackhpc/jupyterhub-pytorch-intel-gpu:v0.0.1
-            image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:be2d370
+            image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:6421ba1
             extra_resource_limits:
               "gpu.intel.com/i915": "1"
             supplemental_gids:
               - "110" # Ubuntu render group GID, requred for permission to use Intel GPU device
-            # https://pytorch.org/docs/stable/notes/get_start_xpu.html
-            # lifecycle_hooks:
-            #   postStart:
-            #     exec:
-            #       command:
-            #         - "sh"
-            #         - "-c"
-            #         - "pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/xpu"
+        - display_name: "Pytorch environment with 2 x Intel XPUs"
+          description: "Pytorch Jupyter Stacks image!"
+          kubespawner_override:
+            image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:6421ba1
+            extra_resource_limits:
+              "gpu.intel.com/i915": "2"
+            supplemental_gids:
+              - "110" # Ubuntu render group GID, requred for permission to use Intel GPU device
+        - display_name: "Pytorch environment with 4 x Intel XPUs"
+          description: "Pytorch Jupyter Stacks image!"
+          kubespawner_override:
+            image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:6421ba1
+            extra_resource_limits:
+              "gpu.intel.com/i915": "4"
+            supplemental_gids:
+              - "110" # Ubuntu render group GID, requred for permission to use Intel GPU device
