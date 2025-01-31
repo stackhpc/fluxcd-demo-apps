@@ -74,5 +74,5 @@ RUN groupadd -g 110 render
 
 USER ${NB_USER}
 
-pip3 install torch torchvision torchaudio \
+RUN pip3 install torch torchvision torchaudio \
   --index-url https://download.pytorch.org/whl/test/xpu
