@@ -6,6 +6,11 @@ on:
 jobs:
   build_push_images:
     name: Build and push images
+    permissions:
+      contents: read
+      id-token: write         # needed for signing the images with GitHub OIDC Token
+      packages: write         # required for pushing container images
+      security-events: write  # required for pushing SARIF files
     runs-on: ubuntu-22.04
     strategy:
       matrix:
