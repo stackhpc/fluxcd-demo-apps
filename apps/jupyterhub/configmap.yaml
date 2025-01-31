@@ -98,11 +98,12 @@ data:
           description: "If you want the additional bells and whistles: Python, R, and Julia."
           kubespawner_override:
             image: quay.io/jupyter/datascience-notebook:2025-01-28
-        - display_name: "Pytorch environment with Intel XPUs (v0.0.1)"
+        - display_name: "Pytorch environment with Intel XPUs (v0.0.2)"
           description: "Pytorch Jupyter Stacks image!"
           kubespawner_override:
-            image: quay.io/jupyter/pytorch-notebook:2025-01-28
+            #image: quay.io/jupyter/pytorch-notebook:2025-01-28
             #image: ghcr.io/stackhpc/jupyterhub-pytorch-intel-gpu:v0.0.1
+            image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:be2d370
             extra_resource_limits:
               "gpu.intel.com/i915": "1"
             supplemental_gids:
