@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-hostdev-pod-2
+  annotations:
+    k8s.v1.cni.cncf.io/networks: example-hostdevice-network
+spec:
+  nodeSelector:
+    # Note: Replace hostname or remove selector altogether
+    kubernetes.io/hostname: dawntest-dawn-ztt9k-4zrm4
+  containers:
+    - name: test-hostdev-pod
+      #image: ghcr.io/stackhpc/kube-perftest-mpi-benchmarks:19e96a8
+      image: mellanox/rping-test
+      imagePullPolicy: IfNotPresent
+      command: [ "/bin/bash", "-c", "--" ]
+      args: [ "while true; do sleep 300; done;" ]
+      securityContext:
+        capabilities:
+          add: [ "IPC_LOCK" ]
+      resources:
+        requests:
+          nvidia.com/hostdev: "2"
+          gpu.intel.com/i915: "2"
+        limits:
+          nvidia.com/hostdev: "2"
+          gpu.intel.com/i915: "2"

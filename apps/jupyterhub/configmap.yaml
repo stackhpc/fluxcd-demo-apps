@@ -106,6 +106,7 @@ data:
             image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:6421ba1
             extra_resource_limits:
               "gpu.intel.com/i915": "1"
+              "nvidia.com/hostdev": "1"
             supplemental_gids:
               - "110" # Ubuntu render group GID, requred for permission to use Intel GPU device
         - display_name: "Pytorch environment with 2 x Intel XPUs"
@@ -114,6 +115,7 @@ data:
             image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:6421ba1
             extra_resource_limits:
               "gpu.intel.com/i915": "2"
+              "nvidia.com/hostdev": "2"
             supplemental_gids:
               - "110" # Ubuntu render group GID, requred for permission to use Intel GPU device
         - display_name: "Pytorch environment with 4 x Intel XPUs"
@@ -122,5 +124,6 @@ data:
             image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:6421ba1
             extra_resource_limits:
               "gpu.intel.com/i915": "4"
+              "nvidia.com/hostdev": "4"
             supplemental_gids:
               - "110" # Ubuntu render group GID, requred for permission to use Intel GPU device

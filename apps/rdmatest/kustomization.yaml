@@ -1,0 +1,7 @@
+namespace: rdmatest
+
+resources:
+  - namespace.yaml
+  - hostdevice-network.yaml
+  - hostdevice-network-pod1.yaml
+  - hostdevice-network-pod2.yaml
