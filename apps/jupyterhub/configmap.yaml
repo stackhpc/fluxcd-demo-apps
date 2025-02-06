@@ -106,9 +106,15 @@ data:
             image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:6421ba1
             extra_resource_limits:
               "gpu.intel.com/i915": "1"
-              "nvidia.com/hostdev": "1"
+              # "nvidia.com/hostdev": "1"
             supplemental_gids:
               - "110" # Ubuntu render group GID, requred for permission to use Intel GPU device
+            privilaged: false
+            container_security_context:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
         - display_name: "Pytorch environment with 2 x Intel XPUs"
           description: "Pytorch Jupyter Stacks image!"
           kubespawner_override:
