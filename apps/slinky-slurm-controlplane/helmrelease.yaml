@@ -11,6 +11,9 @@ spec:
     - kind: ConfigMap
       name: slinky-slurm-defaults
       valuesKey: values.yaml
+  dependsOn:
+    - name: slurm-operator
+      namespace: slinky
   install:
     createNamespace: true
   driftDetection:
