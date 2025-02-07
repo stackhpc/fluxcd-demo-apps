@@ -14,3 +14,4 @@ resources:
   - ocirepository.yaml
   - helmrelease.yaml
   - priorityclass.yaml
+  - scaledobject.yaml
