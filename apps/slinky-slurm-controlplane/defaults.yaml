@@ -277,7 +277,7 @@ compute:
       # -- (integer)
       # Set the number of replicas to deploy.
       # NOTE: if empty, all nodes matching affinity will have a replica (like DaemonSet).
-      replicas: 1
+      replicas: 3 # TODO: set to max nodes in cluster
       #
       # -- (int)
       # The minimum number of seconds for which a newly created NodeSet Pod should be ready
@@ -302,7 +302,7 @@ compute:
       # -- (string)
       # Set the priority class to use.
       # Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
-      priorityClassName: ""
+      priorityClassName: "slinky-low-priority"
       #
       # -- (object)
       # Set container resource requests and limits for Kubernetes Pod scheduling.
@@ -320,26 +320,20 @@ compute:
       #
       # -- (object)
       # Set affinity for Kubernetes Pod scheduling.
-      affinity: {}
-        # nodeAffinity:
-        #   requiredDuringSchedulingIgnoredDuringExecution:
-        #     nodeSelectorTerms:
-        #       - matchExpressions:
-        #           - key: "kubernetes.io/os"
-        #             operator: In
-        #             values:
-        #               - linux
-        # podAntiAffinity:
-        #   requiredDuringSchedulingIgnoredDuringExecution:
-        #     - topologyKey: "kubernetes.io/hostname"
-        #       labelSelector:
-        #         matchExpressions:
-        #           - key: "app.kubernetes.io/name"
-        #             operator: In
-        #             values:
-        #               - slurmctld
-        #               - slurmdbd
-        #               - slurmrestd
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - singleuser-server
+            topologyKey: "kubernetes.io/hostname"
+            namespaces:
+            - slurm
+            - jupyterhub
+
       #
       # -- (object)
       # Set the update strategy configuration.
