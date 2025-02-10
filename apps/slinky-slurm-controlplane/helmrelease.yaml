@@ -11,13 +11,11 @@ spec:
     - kind: ConfigMap
       name: slinky-slurm-defaults
       valuesKey: values.yaml
+  dependsOn:
+    - name: slurm-operator
+      namespace: slinky
   install:
     createNamespace: true
-    remediation:
-      retries: -1
-  upgrade:
-    remediation:
-      retries: -1
   driftDetection:
     mode: disabled
   interval: 40m
