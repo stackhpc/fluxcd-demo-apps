@@ -1,0 +1,20 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: dawn-radar
+spec:
+  scaleTargetRef:
+    apiVersion: slinky.slurm.net/v1alpha1
+    kind: NodeSet
+    name: slurm-compute-dawn
+  idleReplicaCount: 0
+  minReplicaCount: 1
+  maxReplicaCount: 3
+  cooldownPeriod: 600 #TODO: set to partition max job time
+  triggers:
+    - type: prometheus
+      metricType: Value
+      metadata:
+        serverAddress: http://prometheus-kube-prometheus-prometheus.prometheus:9090
+        query: slurm_partition_pending_jobs{partition="dawn"}
+        threshold: '1'
