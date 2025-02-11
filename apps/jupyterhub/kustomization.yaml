@@ -5,4 +5,5 @@ resources:
   - helmrelease.yaml
   - configmap.yaml
   # - secret.yaml
-  - extra-rbac.yaml
+  # TODO - restore the auto profile detection
+  # - extra-rbac.yaml
