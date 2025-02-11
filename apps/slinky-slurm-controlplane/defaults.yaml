@@ -535,9 +535,9 @@ mariadb:
       selector: {}
     priorityClassName: ""
   metrics:
-    enabled: false
+    enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true
   affinity: {}
   resources: {}
 
