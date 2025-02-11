@@ -330,9 +330,11 @@ compute:
                 values:
                 - singleuser-server
             topologyKey: "kubernetes.io/hostname"
+            # TODO - make this more easily configurable
             namespaces:
             - slurm
             - jupyterhub
+            - testproject2
 
       #
       # -- (object)
