@@ -2,5 +2,6 @@
 namespace: keda
 
 resources:
+  - namespace.yaml
   - helmrelease.yaml
   - helmrepository.yaml
