@@ -5,7 +5,7 @@ metadata:
   name: kube-perftest-operator
 spec:
   chart: kube-perftest-operator
-  version: "0.1.0-dev.0.refresh-images.193"
+  version: "0.1.0"
   sourceRef:
     kind: HelmRepository
     name: kube-perftest
