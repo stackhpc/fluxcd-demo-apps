@@ -1,6 +1,9 @@
 # fluxcd-demo-apps
 A repository of example apps deployed and managed using Flux CD
 
+> [!CAUTION]
+> This is very much a work in progress!!
+
 ## Creating Sealed Secrets
 
 We assume the use of sealed secrets.
