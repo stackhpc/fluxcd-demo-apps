@@ -277,7 +277,7 @@ compute:
       # -- (integer)
       # Set the number of replicas to deploy.
       # NOTE: if empty, all nodes matching affinity will have a replica (like DaemonSet).
-      replicas: 3 # TODO: set to max nodes in cluster
+      replicas: 2 # TODO: set to max nodes in cluster
       #
       # -- (int)
       # The minimum number of seconds for which a newly created NodeSet Pod should be ready
