@@ -90,6 +90,8 @@ data:
       image:
         name: quay.io/jupyter/minimal-notebook
         tag: "2025-01-28"
+      cloudMetadata:
+        blockWithIptables: false
       profileList:
         - display_name: "Minimal environment"
           description: "To avoid too much bells and whistles: Python."
