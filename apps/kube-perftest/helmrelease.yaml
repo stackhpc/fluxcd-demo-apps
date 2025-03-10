@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-perftest-operator
+spec:
+  chartRef:
+    kind: HelmChart
+    name: kube-perftest-operator
+  releaseName: kube-perftest-operator
+  valuesFrom:
+  - kind: ConfigMap
+    name: kube-perftest-config
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  driftDetection:
+    mode: enabled
+  interval: 5m

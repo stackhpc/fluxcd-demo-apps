@@ -1,0 +1,9 @@
+---
+namespace: kube-perftest
+
+resources:
+  - namespace.yaml
+  - helmrepository.yaml
+  - helmchart.yaml
+  - helmrelease.yaml
+  - configmap.yaml

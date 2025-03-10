@@ -1,0 +1,17 @@
+---
+namespace: slurm
+
+configurations:
+  - kustomizeconfig.yaml
+
+configMapGenerator:
+  - name: slinky-slurm-defaults
+    files:
+      - values.yaml=defaults.yaml
+
+resources:
+  - namespace.yaml
+  - ocirepository.yaml
+  - helmrelease.yaml
+  - priorityclass.yaml
+  - scaledobject.yaml

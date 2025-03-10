@@ -1,0 +1,12 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmChart
+metadata:
+  name: kube-perftest-operator
+spec:
+  chart: kube-perftest-operator
+  version: "0.1.0"
+  sourceRef:
+    kind: HelmRepository
+    name: kube-perftest
+  interval: 10m0s

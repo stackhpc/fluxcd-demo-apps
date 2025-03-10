@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tetragon
+data:
+  values.yaml: |
+    tetragon:
+      prometheus:
+        serviceMonitor:
+          enabled: true
+    tetragonOperator:
+      prometheus:
+        serviceMonitor:
+          enabled: true
