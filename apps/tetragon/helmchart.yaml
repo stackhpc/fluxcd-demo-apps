@@ -1,0 +1,12 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmChart
+metadata:
+  name: tetragon
+spec:
+  chart: tetragon
+  version: "v1.3.0"
+  sourceRef:
+    kind: HelmRepository
+    name: cilium
+  interval: 10m0s

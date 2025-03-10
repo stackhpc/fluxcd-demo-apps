@@ -1,0 +1,12 @@
+---
+namespace: tetragon
+
+resources:
+  - namespace.yaml
+  - helmrepository.yaml
+  - helmchart.yaml
+  - helmrelease.yaml
+  - configmap.yaml
+  # TODO - these need to depend on helm chart install
+  - file_monitoring.yaml
+  - network_egress_cluster.yaml
