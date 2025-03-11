@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jupyterhub
+  labels:
+    # Set the pod security standard for the namespace
+    # https://kubernetes.io/docs/tutorials/security/ns-level-pss/
+    # pod-security.kubernetes.io/enforce: privileged
+    # pod-security.kubernetes.io/enforce: baseline
+    # pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/audit: restricted

@@ -1,0 +1,22 @@
+apiVersion: mellanox.com/v1alpha1
+kind: HostDeviceNetwork
+metadata:
+  name: example-hostdevice-network
+spec:
+  networkNamespace: "default"
+  resourceName: "hostdev"
+  ipam: |
+    {
+      "type": "whereabouts",
+      "datastore": "kubernetes",
+      "kubernetes": {
+        "kubeconfig": "/etc/cni/net.d/whereabouts.d/whereabouts.kubeconfig"
+      },
+      "range": "192.168.42.0/24",
+      "exclude": [
+       "192.168.42.0/32",
+       "192.168.42.255/32",
+      ],
+      "log_file" : "/var/log/whereabouts.log",
+      "log_level" : "info"
+    }

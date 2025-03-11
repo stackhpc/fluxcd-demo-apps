@@ -1,0 +1,7 @@
+---
+resources:
+  # - ../cert-manager/
+  - ../keda/
+  # todo - need above to install before below
+  - ../slinky-slurm-operator/
+  - ../slinky-slurm-controlplane/
