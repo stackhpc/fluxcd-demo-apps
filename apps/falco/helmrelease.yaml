@@ -16,3 +16,5 @@ spec:
   valuesFrom:
   - kind: ConfigMap
     name: falco-config
+  - kind: ConfigMap
+    name: rules-config

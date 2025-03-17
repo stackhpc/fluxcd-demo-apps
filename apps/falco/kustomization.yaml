@@ -3,3 +3,4 @@ resources:
   - helmrepository.yaml
   - helmrelease.yaml
   - configmap.yaml
+  - custom-rules.yaml
