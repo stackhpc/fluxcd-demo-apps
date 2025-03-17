@@ -9,10 +9,10 @@ data:
     tty: true
     falco:
       rules_files:
-      - /etc/falco/rules.d
       - /etc/falco/falco_rules.yaml
       - /etc/falco/falco_rules.local.yaml
       # - /etc/falco/falco-incubating_rules.yaml
+      - /etc/falco/rules.d
     falcoctl:
       config:
         artifact:
@@ -26,6 +26,10 @@ data:
             refs:
             - falco-rules:3
             # - falco-incubating-rules:4
+    falcosidekick:
+      enabled: true
+      webui:
+        enabled: true
 
     customRules:
       custom-rules.yaml: |-
@@ -38,6 +42,11 @@ data:
             ((evt.type = container or
             (spawned_process and proc.vpid=1)) and
             container.image.repository != incomplete)
+
+        - rule: Contact K8S API Server From Container # generates a lot of noise, but is it worth having this for some namespaces?
+          enabled: false
+          override:
+            enabled: replace
         
         - rule: Privileged Container Custom # version in incubating rules seems to trust arbitrary images
           desc: > 
